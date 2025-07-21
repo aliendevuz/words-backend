@@ -1,5 +1,6 @@
 import { APIGatewayProxyEventV2, APIGatewayProxyResult } from "aws-lambda";
 import { generatePinHandler } from "./handlers/generatePin";
+import { verifyHandler } from "./handlers/verifyHandler";
 import { getUsersHandler } from "./routes/get_users";
 import { verifyToken } from "./utils/auth";
 
@@ -26,6 +27,10 @@ export const handler = async (
     // 🔓 Open routes (token required emas)
     if (routeKey === "POST /login") {
       return await generatePinHandler(event);
+    }
+
+    if (routeKey === "POST /verify") {
+      return await verifyHandler(event);
     }
 
     // 🔐 Protected routes

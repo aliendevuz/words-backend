@@ -1,4 +1,5 @@
 import { generatePinHandler } from "./handlers/generatePin.mjs";
+import { verifyHandler } from "./handlers/verifyHandler.mjs";
 import { getUsersHandler } from "./routes/get_users.mjs";
 import { verifyToken } from "./utils/auth.mjs";
 // Yagona kirish nuqtasi
@@ -20,6 +21,9 @@ export const handler = async (event) => {
         // 🔓 Open routes (token required emas)
         if (routeKey === "POST /login") {
             return await generatePinHandler(event);
+        }
+        if (routeKey === "POST /verify") {
+            return await verifyHandler(event);
         }
         // 🔐 Protected routes
         const user = verifyToken(event);
