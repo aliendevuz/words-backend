@@ -10,6 +10,19 @@ export const handler = async (
   try {
     const routeKey = `${event.requestContext.http.method} ${event.rawPath}`;
 
+    if (event.requestContext.http.method === "OPTIONS") {
+      return {
+        statusCode: 200,
+        headers: {
+          "Access-Control-Allow-Origin": event.headers.origin || "*",
+          "Access-Control-Allow-Headers": "content-type",
+          "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+          "Access-Control-Allow-Credentials": "true",
+        },
+        body: "",
+      };
+    }
+
     // 🔓 Open routes (token required emas)
     if (routeKey === "POST /login") {
       return await generatePinHandler(event);
