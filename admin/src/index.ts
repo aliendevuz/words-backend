@@ -1,4 +1,5 @@
 import { APIGatewayProxyEventV2, APIGatewayProxyResult } from "aws-lambda";
+import { generatePinHandler } from "./handlers/generatePin";
 import { getUsersHandler } from "./routes/get_users";
 import { verifyToken } from "./utils/auth";
 
@@ -22,6 +23,8 @@ export const handler = async (
     switch (routeKey) {
       case "GET /get_users":
         return await getUsersHandler();
+      case "POST /login":
+        return generatePinHandler(event);
       default:
         return {
           statusCode: 404,

@@ -1,10 +1,6 @@
 import { APIGatewayProxyEventV2 } from "aws-lambda";
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
-
-dotenv.config();
-
-const JWT_SECRET = process.env.JWT_SECRET as string;
+import { JWT_SECRET } from "../config";
 
 export const verifyToken = (event: APIGatewayProxyEventV2): null | object => {
   const rawCookies = event.cookies;

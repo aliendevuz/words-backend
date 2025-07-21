@@ -10,7 +10,8 @@
     "@aws-sdk/client-dynamodb": "^3.848.0",
     "@aws-sdk/lib-dynamodb": "^3.848.0",
     "dotenv": "^17.2.0",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "telegraf": "^4.16.3"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.152",

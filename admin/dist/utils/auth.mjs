@@ -1,7 +1,5 @@
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
-dotenv.config();
-const JWT_SECRET = process.env.JWT_SECRET;
+import { JWT_SECRET } from "../config.mjs";
 export const verifyToken = (event) => {
     const rawCookies = event.cookies;
     let token;

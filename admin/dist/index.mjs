@@ -1,3 +1,4 @@
+import { generatePinHandler } from "./handlers/generatePin.mjs";
 import { getUsersHandler } from "./routes/get_users.mjs";
 import { verifyToken } from "./utils/auth.mjs";
 // Yagona kirish nuqtasi
@@ -16,6 +17,8 @@ export const handler = async (event) => {
         switch (routeKey) {
             case "GET /get_users":
                 return await getUsersHandler();
+            case "POST /login":
+                return generatePinHandler(event);
             default:
                 return {
                     statusCode: 404,
