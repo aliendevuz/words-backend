@@ -8,7 +8,14 @@ export const handler = async (
   event: APIGatewayProxyEventV2
 ): Promise<APIGatewayProxyResult> => {
   try {
-    // Token tekshirish
+    const routeKey = `${event.requestContext.http.method} ${event.rawPath}`;
+
+    // 🔓 Open routes (token required emas)
+    if (routeKey === "POST /login") {
+      return await generatePinHandler(event);
+    }
+
+    // 🔐 Protected routes
     const user = verifyToken(event);
     if (!user) {
       return {
@@ -17,14 +24,9 @@ export const handler = async (
       };
     }
 
-    // Routing
-    const routeKey = `${event.requestContext.http.method} ${event.rawPath}`;
-
     switch (routeKey) {
       case "GET /get_users":
         return await getUsersHandler();
-      case "POST /login":
-        return generatePinHandler(event);
       default:
         return {
           statusCode: 404,
