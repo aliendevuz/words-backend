@@ -3,7 +3,7 @@ name: Deploy Frontend
 on:
   push:
     paths:
-      - 'lambdas/frontend/dist/**'
+      - 'frontend/dist/**'
     branches:
       - main
   workflow_dispatch:
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: lambdas/frontend
+        working-directory: frontend
 
     steps:
       - name: Checkout code

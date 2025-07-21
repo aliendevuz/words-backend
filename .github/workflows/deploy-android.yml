@@ -3,7 +3,7 @@ name: Deploy Android
 on:
   push:
     paths:
-      - 'lambdas/android/dist/**'
+      - 'android/dist/**'
     branches:
       - main
   workflow_dispatch:
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: lambdas/android
+        working-directory: android
 
     steps:
       - name: Checkout code
