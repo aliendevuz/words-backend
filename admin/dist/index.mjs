@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 dotenv.config();
 const client = new DynamoDBClient({});
 const ddb = DynamoDBDocumentClient.from(client);
-const TABLE_NAME = "words.telegram_admin_panel_bot_users";
+const TABLE_NAME = "words.telegram_support_bot_users";
 const JWT_SECRET = process.env.JWT_SECRET;
 export const handler = async (event) => {
     try {

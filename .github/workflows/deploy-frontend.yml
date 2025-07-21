@@ -1,9 +1,9 @@
-name: Deploy Upload Image Lambda
+name: Deploy Frontend
 
 on:
   push:
     paths:
-      - 'lambdas/upload_image/**'
+      - 'lambdas/frontend/dist/**'
     branches:
       - main
   workflow_dispatch:
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: lambdas/upload_image
+        working-directory: lambdas/frontend
 
     steps:
       - name: Checkout code
@@ -27,8 +27,16 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Create ZIP file
-        run: zip -r code.zip .
+      - name: Build TypeScript project
+        run: npm run build
+
+      - name: Prepare deployment package
+        run: |
+          mkdir lambda
+          cp -r dist/* lambda/
+          cp package.json package-lock.json lambda/
+          npm ci --omit=dev --prefix lambda
+          cd lambda && zip -r ../function.zip . && cd ..
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -40,5 +48,5 @@ jobs:
       - name: Deploy to Lambda
         run: |
           aws lambda update-function-code \
-            --function-name arn:aws:lambda:eu-central-1:965638719397:function:words-upload_image \
-            --zip-file fileb://code.zip
+            --function-name words-frontend \
+            --zip-file fileb://function.zip

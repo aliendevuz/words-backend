@@ -1,9 +1,9 @@
-name: Deploy Admin Get Users
+name: Deploy Admin
 
 on:
   push:
     paths:
-      - 'lambdas/admin/get_users/dist/**'
+      - 'lambdas/admin/dist/**'
     branches:
       - main
   workflow_dispatch:
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: lambdas/admin/get_users
+        working-directory: lambdas/admin
 
     steps:
       - name: Checkout code
@@ -48,5 +48,5 @@ jobs:
       - name: Deploy to Lambda
         run: |
           aws lambda update-function-code \
-            --function-name words-admin_get_users \
+            --function-name words-admin \
             --zip-file fileb://function.zip
